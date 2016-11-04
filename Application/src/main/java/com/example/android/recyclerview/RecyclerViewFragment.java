@@ -21,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,37 @@ public class RecyclerViewFragment extends Fragment {
 
         // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+
+        mRecyclerView.setItemViewCacheSize(0);
+        mRecyclerView.setRecyclerListener(new RecyclerView.RecyclerListener() {
+            @Override
+            public void onViewRecycled(RecyclerView.ViewHolder holder) {
+                Log.d(TAG, "onViewRecycled. holder:" + holder);
+            }
+        });
+        mRecyclerView.setViewCacheExtension(new RecyclerView.ViewCacheExtension() {
+            @Override
+            public View getViewForPositionAndType(RecyclerView.Recycler recycler, int position, int type) {
+                Log.d(TAG, "getViewForPositionAndType. positon:" + position + " type:" + type + " recycler:" + recycler);
+                return null;
+            }
+        });
+        mRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool(){
+            @Override
+            public RecyclerView.ViewHolder getRecycledView(int viewType) {
+                RecyclerView.ViewHolder h =  super.getRecycledView(viewType);
+
+                Log.d(TAG, "getRecyclerview. viewType:" + viewType + " viewholder:" + h);
+                return h;
+            }
+
+            @Override
+            public void putRecycledView(RecyclerView.ViewHolder scrap) {
+                super.putRecycledView(scrap);
+
+                Log.d(TAG, "putRecycledView. scrap:" + scrap);
+            }
+        });
 
         // LinearLayoutManager is used here, this will layout the elements in a similar fashion
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how

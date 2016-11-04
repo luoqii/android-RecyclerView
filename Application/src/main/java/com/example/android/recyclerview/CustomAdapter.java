@@ -73,7 +73,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.text_row_item, viewGroup, false);
-
+        Log.d(TAG, "onCreateViewHolder.");
         return new ViewHolder(v);
     }
     // END_INCLUDE(recyclerViewOnCreateViewHolder)
