@@ -33,7 +33,7 @@ import android.widget.RadioButton;
  */
 public class RecyclerViewFragment extends Fragment {
 
-    private static final String TAG = "RecyclerViewFragment";
+    static final String TAG = "RecyclerViewFragment";
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
     private static final int DATASET_COUNT = 60;
@@ -71,7 +71,9 @@ public class RecyclerViewFragment extends Fragment {
         // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
 
+        // XXX
         mRecyclerView.setItemViewCacheSize(0);
+
         mRecyclerView.setRecyclerListener(new RecyclerView.RecyclerListener() {
             @Override
             public void onViewRecycled(RecyclerView.ViewHolder holder) {
